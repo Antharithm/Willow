@@ -1,23 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import { ethers } from "ethers";
+
+// Components
+import Navigation from "./components/Navigation";
+import Search from "./components/Search";
+import Home from "./components/Home";
+
+// ABIs
+import RealEstate from "./abis/RealEstate.json";
+import Escrow from "./abis/Escrow.json";
+
+// Config
+import config from "./config.json";
 
 function App() {
+  const [account, setAccount] = useState(null); // if it doesnt exist return a null value
+
+  const loadBlockchainData = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+    window.ethereum.on("accountsChanged", async () => {
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      const account = ethers.utils.getAddress(accounts[0]);
+      setAccount(account);
+    });
+  };
+
+  useEffect(() => {
+    loadBlockchainData();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Navigation account={account} setAccount={setAccount}></Navigation>
+      <div className="cards__section">
+        <h3>Welcome to web3 RealEstate</h3>
+      </div>
     </div>
   );
 }
