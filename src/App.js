@@ -35,6 +35,7 @@ function App() {
   return (
     <div>
       <Navigation account={account} setAccount={setAccount}></Navigation>
+      <Search />
       <div className="cards__section">
         <h3>Welcome to web3 RealEstate</h3>
       </div>
