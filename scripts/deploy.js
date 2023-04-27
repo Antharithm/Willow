@@ -6,22 +6,57 @@
 // global scope, and execute the script.
 const hre = require("hardhat");
 
+const tokens = (n) => {
+  return ethers.utils.parseUnits(n.toString(), 'ether')
+}
+
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
+  // Setup accounts
+  const [buyer, seller, inspector, lender] = await ethers.getSigners()
 
-  const lockedAmount = hre.ethers.utils.parseEther("0.001");
+  // Deploy Real Estate
+  const RealEstate = await ethers.getContractFactory('RealEstate')
+  const realEstate = await RealEstate.deploy()
+  await realEstate.deployed()
 
-  const Lock = await hre.ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
+  console.log(`Deployed Real Estate Contract at: ${realEstate.address}`)
+  console.log(`Minting 3 properties...\n`)
 
-  await lock.deployed();
+  for (let i = 0; i < 3; i++) {
+    const transaction = await realEstate.connect(seller).mint(`https://ipfs.io/ipfs/QmQVcpsjrA6cr1iJjZAodYwmPekYgbnXGo4DFubJiLc2EB/${i + 1}.json`)
+    await transaction.wait()
+  }
 
-  console.log(
-    `Lock with ${ethers.utils.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
-  );
+  // Deploy Escrow
+  const Escrow = await ethers.getContractFactory('Escrow')
+  const escrow = await Escrow.deploy(
+    realEstate.address,
+    seller.address,
+    inspector.address,
+    lender.address
+  )
+  await escrow.deployed()
+
+  console.log(`Deployed Escrow Contract at: ${escrow.address}`)
+  console.log(`Listing 3 properties...\n`)
+
+  for (let i = 0; i < 3; i++) {
+    // Approve properties...
+    let transaction = await realEstate.connect(seller).approve(escrow.address, i + 1)
+    await transaction.wait()
+  }
+
+  // Listing properties...
+  transaction = await escrow.connect(seller).list(1, buyer.address, tokens(20), tokens(10))
+  await transaction.wait()
+
+  transaction = await escrow.connect(seller).list(2, buyer.address, tokens(15), tokens(5))
+  await transaction.wait()
+
+  transaction = await escrow.connect(seller).list(3, buyer.address, tokens(10), tokens(5))
+  await transaction.wait()
+
+  console.log(`Finished.`)
 }
 
 // We recommend this pattern to be able to use async/await everywhere
