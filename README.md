@@ -1,5 +1,7 @@
 # Willow | Web3 Real Estate NFT Marketplace
 
+![willowImg](https://user-images.githubusercontent.com/83500098/235681461-fd92604a-68fa-4910-a864-94f9487dc60f.png)
+
 ## Technology Stack
 
 - Solidity
