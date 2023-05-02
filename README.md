@@ -1,4 +1,4 @@
-# Willow | Real Estate NFT marketplace DApp
+# Willow | Web3 Real Estate NFT Marketplace
 
 ## Technology Stack
 
