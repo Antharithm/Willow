@@ -6,12 +6,10 @@
 
 - Solidity
 - Javascript
-- [Hardhat](https://hardhat.org/)
-- [Ethers.js](https://docs.ethers.io/v5/)
-- [React.js](https://reactjs.org/)
-
-## Requirements For Initial Setup
-- Install [NodeJS](https://nodejs.org/en/)
+- Ethers.js
+- React.js
+- Node.js
+- Hardhat
 
 ## Run this dapp
 ### 1. Clone or Download the Repository
