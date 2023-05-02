@@ -1,13 +1,31 @@
-# Sample Hardhat Project
+# Willow | Real Estate NFT marketplace DApp
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+## Technology Stack
 
-Try running some of the following tasks:
+- Solidity
+- Javascript
+- [Hardhat](https://hardhat.org/)
+- [Ethers.js](https://docs.ethers.io/v5/)
+- [React.js](https://reactjs.org/)
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.js
-```
+## Requirements For Initial Setup
+- Install [NodeJS](https://nodejs.org/en/)
+
+## Run this dapp
+### 1. Clone or Download the Repository
+
+### 2. Install Dependencies:
+`$ npm install`
+
+### 3. Run tests
+`$ npx hardhat test`
+
+### 4. Start Hardhat node
+`$ npx hardhat node`
+
+### 5. Run deployment script
+In a separate terminal execute:
+`$ npx hardhat run ./scripts/deploy.js --network localhost`
+
+### 7. Start frontend
+`$ npm run start`
