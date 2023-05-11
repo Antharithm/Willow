@@ -1,4 +1,4 @@
-# Willow | Web3 Real Estate NFT Marketplace
+# Willow | web3 Real Estate NFT Marketplace
 ###
 ![willowImgv2](https://user-images.githubusercontent.com/83500098/235682263-6386b3fc-bd22-4b6d-8606-081e7809fa31.png)
 ###
@@ -10,6 +10,9 @@
 - React.js
 - Node.js
 - Hardhat
+
+### Dependancies
+- MetaMask (reset account on the Hardhat Network)
 
 ## Run this dapp
 ### 1. Clone or Download the Repository
